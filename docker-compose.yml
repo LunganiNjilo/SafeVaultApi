@@ -1,0 +1,47 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: safevault-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Your_password123"
+    ports:
+      - "1433:1433"
+    networks:
+      - safevault-net
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  safevault-api:
+    build:
+      context: .
+      dockerfile: SafeVaultApi/Dockerfile
+    container_name: safevault-api
+    depends_on:
+      - sqlserver
+      - payment-mock-service
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__DefaultConnection: >
+        Server=sqlserver,1433;Database=SafeVaultDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
+      PaymentApi__BaseUrl: "http://payment-mock-service:3000"  # <-- Mock API URL
+    ports:
+      - "8080:8080"
+    networks:
+      - safevault-net
+
+  payment-mock-service:
+    build:
+      context: ./payment-mock     # <-- Uses local Dockerfile
+    container_name: safevault-payment-mock
+    ports:
+      - "9090:3000"               # host:container
+    networks:
+      - safevault-net
+
+networks:
+  safevault-net:
+
+volumes:
+  sql_data:

@@ -1,0 +1,32 @@
+# Dotnet build artifacts
+bin/
+obj/
+out/
+*.user
+*.suo
+.vs/
+
+# Publish files
+publish/
+dist/
+
+# Docker
+**/sql_data/
+**/mssql/
+**/docker-data/
+*.log
+
+# Secrets (never commit)
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# EF Migrations backups
+*.db-shm
+*.db-wal
+*.db

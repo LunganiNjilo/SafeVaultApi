@@ -1,0 +1,11 @@
+{
+  "paySuccess": {
+    "success": true,
+    "message": "Payment completed successfully",
+    "transactionId": "TXN-123456"
+  },
+  "payFailure": {
+    "success": false,
+    "message": "Insufficient funds"
+  }
+}
