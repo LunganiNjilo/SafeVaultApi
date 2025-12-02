@@ -13,9 +13,8 @@ namespace Infrastructure.Extensions
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();      
             services.AddScoped<IPaymentRepository, PaymentRepository>();
-            services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
-           
 
             return services;
         }

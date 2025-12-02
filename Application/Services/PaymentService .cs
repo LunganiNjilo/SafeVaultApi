@@ -2,11 +2,9 @@
 using Application.Models;
 using Domain.Entities;
 using Domain.Enums;
-using System.Net.Http.Json;
 
 namespace Application.Services
 {
-
     public class PaymentService : IPaymentService
     {
         private readonly IPaymentRepository _repo;
@@ -60,4 +58,5 @@ namespace Application.Services
             };
         }
     }
+
 }
