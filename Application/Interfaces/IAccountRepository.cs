@@ -14,5 +14,7 @@ namespace Application.Interfaces
         Task SaveChangesAsync();
 
         Task ExecuteInTransactionAsync(Func<Task> operation);
+
+        Task<Account?> GetByAccountNumberAsync(string accountNumber);
     }
 }

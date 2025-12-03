@@ -53,7 +53,7 @@ namespace SafeVaultApi.Tests.Tests.Accounts
                 Balance = 100m
             };
 
-            accountRepositoryMock.GetByNumberAsync("CR123").Returns(acct);
+            accountRepositoryMock.GetByAccountNumberAsync("CR123").Returns(acct);
 
             // UoW and repo behaviors
             uowMock.BeginTransactionAsync().Returns(Task.CompletedTask);
@@ -89,7 +89,7 @@ namespace SafeVaultApi.Tests.Tests.Accounts
                 Balance = 300m
             };
 
-            accountRepositoryMock.GetByNumberAsync("DB123").Returns(acct);
+            accountRepositoryMock.GetByAccountNumberAsync("DB123").Returns(acct);
 
             uowMock.BeginTransactionAsync().Returns(Task.CompletedTask);
             uowMock.SaveChangesAsync().Returns(1);
@@ -124,7 +124,7 @@ namespace SafeVaultApi.Tests.Tests.Accounts
                 Balance = 30m
             };
 
-            accountRepositoryMock.GetByNumberAsync("LOW123").Returns(acct);
+            accountRepositoryMock.GetByAccountNumberAsync("LOW123").Returns(acct);
 
             uowMock.BeginTransactionAsync().Returns(Task.CompletedTask);
             uowMock.RollbackAsync().Returns(Task.CompletedTask);

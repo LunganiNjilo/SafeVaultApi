@@ -17,7 +17,12 @@ namespace Infrastructure.Persistence
 
         public async Task<Account?> GetByNumberAsync(string accountNumber)
             => await _db.Accounts
-                .AsNoTracking()
+
+                .Include(a => a.Transactions)
+                .FirstOrDefaultAsync(a => a.AccountNumber == accountNumber);
+
+        public async Task<Account?> GetByAccountNumberAsync(string accountNumber)
+            => await _db.Accounts
                 .Include(a => a.Transactions)
                 .FirstOrDefaultAsync(a => a.AccountNumber == accountNumber);
 
@@ -30,18 +35,18 @@ namespace Infrastructure.Persistence
         public async Task<Account?> GetForUpdateAsync(Guid id)
             => await _db.Accounts
                 .Include(a => a.Transactions)
-                .FirstOrDefaultAsync(a => a.Id == id);   
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-        public async Task AddAsync(Account account)
+        public Task AddAsync(Account account)
         {
-            await _db.Accounts.AddAsync(account);
-            await _db.SaveChangesAsync();
+            _db.Accounts.AddAsync(account);
+            return Task.CompletedTask;
         }
 
-        public async Task UpdateAsync(Account account)
+        public Task UpdateAsync(Account account)
         {
             _db.Accounts.Update(account);
-            await _db.SaveChangesAsync();
+            return Task.CompletedTask;
         }
 
         public async Task ExecuteInTransactionAsync(Func<Task> operation)

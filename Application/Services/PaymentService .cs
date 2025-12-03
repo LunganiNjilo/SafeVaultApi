@@ -1,7 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Enums;
+using Application.Interfaces;
 using Application.Models;
 using Domain.Entities;
 using Domain.Enums;
+using Domain.Errors;
+using System.Net;
 
 namespace Application.Services
 {
@@ -18,28 +22,53 @@ namespace Application.Services
 
         public async Task<PaymentResult> PayAsync(PayCommand request)
         {
-            var account = await _repo.GetAccountAsync(request.FromAccountId);
-
-            if (account == null)
-                return new PaymentResult { Success = false, Message = "Account not found" };
-
+            // Validate amount
             if (request.Amount <= 0)
-                return new PaymentResult { Success = false, Message = "Invalid amount" };
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    "Amount must be greater than zero."
+                );
 
-            if (account.Balance < request.Amount)
-                return new PaymentResult { Success = false, Message = "Insufficient balance" };
+            // Fetch account
+            var account = await _repo.GetAccountAsync(request.FromAccountId);
+            if (account == null)
+                throw new ApiException(
+                    (int)HttpStatusCode.NotFound,
+                    ErrorType.NotFound,
+                    "Account not found."
+                );
 
-            // Call mock provider
+            // Call provider BEFORE touching balance
             var providerResponse = await _provider.SendPaymentAsync();
+            if (providerResponse == null || !providerResponse.Success)
+            {
+                return new PaymentResult
+                {
+                    Success = false,
+                    Message = "Payment provider declined the payment."
+                };
+            }
 
-            if (providerResponse == null || providerResponse.Success == false)
-                return new PaymentResult { Success = false, Message = "Provider declined payment" };
+            // Apply business rules in domain
+            try
+            {
+                account.Debit(request.Amount);
+            }
+            catch (DomainException ex)
+            {
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    ex.Message
+                );
+            }
 
-            // Update balance
+            // Update balance (your current repo DOES save immediately)
             await _repo.UpdateBalanceAsync(account, request.Amount);
 
-            // Add transaction
-            await _repo.AddTransactionAsync(new Transaction
+            // Record transaction (your repo ALSO saves immediately)
+            var tx = new Transaction
             {
                 AccountId = account.Id,
                 Amount = -request.Amount,
@@ -47,16 +76,20 @@ namespace Application.Services
                 Type = TransactionType.Debit,
                 BalanceAfter = account.Balance,
                 CreatedAt = DateTime.UtcNow
-            });
+            };
 
+            await _repo.AddTransactionAsync(tx);
+
+            // Return final result
             return new PaymentResult
             {
                 Success = true,
-                Message = providerResponse.Message,
                 TransactionId = providerResponse.TransactionId,
-                NewBalance = account.Balance
+                NewBalance = account.Balance,
+                Message = providerResponse.Message
             };
         }
+
     }
 
 }

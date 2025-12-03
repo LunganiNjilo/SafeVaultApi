@@ -24,10 +24,10 @@ namespace Infrastructure.Persistence
             await _db.SaveChangesAsync();
         }
 
-        public async Task AddTransactionAsync(Transaction tx)
+        public  Task AddTransactionAsync(Transaction tx)
         {
             _db.Transactions.Add(tx);
-            await _db.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }

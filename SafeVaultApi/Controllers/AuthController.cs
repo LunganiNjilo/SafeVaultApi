@@ -1,11 +1,8 @@
-﻿using Application.Common.Exceptions;
-using Application.Enums;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SafeVaultApi.Mapping;
 using SafeVaultApi.Models.Request;
 using SafeVaultApi.Models.Response;
-using System.Net;
 
 namespace SafeVaultApi.Controllers
 {
@@ -23,17 +20,17 @@ namespace SafeVaultApi.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest request)
         {
-            var user = await _auth.LoginAsync(request.Email, request.Password);
+            var result = await _auth.LoginAsync(request.Email, request.Password);
 
-            if (user == null)
-            {
-                throw new ApiException((int)HttpStatusCode.Unauthorized, ErrorType.Unauthorized, "Invalid credentials");
-            }
+            if (!result.Success)
+                return Unauthorized(new
+                {
+                    error = "login_failed",
+                    message = "Incorrect email or password. Please try again."
+                });
 
-            // TODO: Replace with JWT later
-            var token = "FAKE-TOKEN";
-
-            return Ok(AuthMapper.ToLoginResponse(user, token));
+            var token = "FAKE-TOKEN"; // replace with JWT later
+            return Ok(AuthMapper.ToLoginResponse(result!, token));
         }
     }
 }

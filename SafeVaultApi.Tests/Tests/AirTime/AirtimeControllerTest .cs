@@ -31,7 +31,7 @@ namespace SafeVaultApi.Tests.Tests.Airtime
 
             // Account repository: return account
             accountRepositoryMock
-                .GetByNumberAsync("12345")
+                .GetByAccountNumberAsync("12345")
                 .Returns(acct);
 
             // UoW transaction flow

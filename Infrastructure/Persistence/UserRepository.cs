@@ -20,7 +20,7 @@ namespace Infrastructure.Persistence
 
         public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public Task<User?> GetByNumberAsync(string accountNumber)

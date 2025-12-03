@@ -3,6 +3,7 @@ using Application.Enums;
 using Application.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
+using Domain.Errors;
 using System.Net;
 
 namespace Application.Services
@@ -38,31 +39,43 @@ namespace Application.Services
         public async Task<Transaction> DebitAsync(string number, decimal amount, string description)
         {
             if (amount <= 0) throw new ApiException((int)HttpStatusCode.BadRequest, ErrorType.BadRequest, "Amount must be > 0");
-            return await PerformTransaction(number, -amount, description, TransactionType.Debit);
+            return await PerformTransaction(number, amount, description, TransactionType.Debit);
         }
 
-        private async Task<Transaction> PerformTransaction(string number, decimal amountDelta, string description, TransactionType type)
+        private async Task<Transaction> PerformTransaction(
+            string number,
+            decimal amount,
+            string description,
+            TransactionType type)
         {
             await _uow.BeginTransactionAsync();
+
             try
             {
-                var acct = await _accounts.GetByNumberAsync(number)
+                var acct = await _accounts.GetByAccountNumberAsync(number)
                     ?? throw new ApiException((int)HttpStatusCode.NotFound, ErrorType.NotFound, "Account not found.");
 
-                var newBalance = acct.Balance + amountDelta;
-                if (newBalance < 0)
+                // APPLY DOMAIN BEHAVIOR (not raw balance math)
+                switch (type)
                 {
-                    throw new ApiException((int)HttpStatusCode.BadRequest, ErrorType.BadRequest, "Insufficient funds.");
+                    case TransactionType.Credit:
+                        acct.Credit(amount);
+                        break;
+
+                    case TransactionType.Debit:
+                        acct.Debit(amount);
+                        break;
                 }
 
-                acct.Balance = newBalance;
-                await _accounts.UpdateAsync(acct); // repository marks entity as modified in context
+                // Track changes
+                await _accounts.UpdateAsync(acct);
 
+                // Create transaction entry
                 var tx = new Transaction
                 {
                     AccountId = acct.Id,
-                    Amount = Math.Abs(amountDelta),
-                    Fee = 0m,
+                    Amount = amount,
+                    Fee = 0M,
                     BalanceAfter = acct.Balance,
                     Type = type,
                     Description = description,
@@ -71,10 +84,19 @@ namespace Application.Services
 
                 await _transactions.AddAsync(tx);
 
-                await _uow.SaveChangesAsync();
+                // Commit UoW
                 await _uow.CommitAsync();
 
                 return tx;
+            }
+            catch (DomainException ex)
+            {
+                await _uow.RollbackAsync();
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    ex.Message
+                );
             }
             catch
             {

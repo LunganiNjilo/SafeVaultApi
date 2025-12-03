@@ -19,22 +19,15 @@ namespace Application.Services
             string phoneNumber,
             decimal amount)
         {
-            try
-            {
-                // Debit the amount from the customer account
-                await _accounts.DebitAsync(
-                    accountNumber,
-                    amount,
-                    $"Airtime purchase for {phoneNumber}"
-                );
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // Centralized error reporting
-                throw new ApiException((int)HttpStatusCode.InternalServerError, ErrorType.InternalServerError, $"Fail to purchase airtime: {ex.Message}");
-            }
+            // Debit the amount from the customer account
+            await _accounts.DebitAsync(
+                accountNumber,
+                amount,
+                $"Airtime purchase for {phoneNumber}"
+            );
+
+            return true;
         }
     }
 }

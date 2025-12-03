@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 
 namespace Application.Services
@@ -14,17 +15,23 @@ namespace Application.Services
             _hasher = hasher;
         }
 
-        public async Task<User?> LoginAsync(string email, string password)
+        public async Task<LoginResult> LoginAsync(string email, string password)
         {
             var user = await _users.GetByEmailAsync(email);
-            if (user == null)
-            {
-                return null;
-            }
 
-            return _hasher.Verify(password, user.PasswordHash)
-                ? user
-                : null;
+            if (user == null)
+                return new LoginResult { Success = false };
+
+            if (!_hasher.Verify(password, user.PasswordHash))
+                return new LoginResult { Success = false };
+
+            // SUCCESS
+            return new LoginResult
+            {
+                Success = true,
+                UserId = user.Id,
+                Email = user.Email
+            };
         }
     }
 }

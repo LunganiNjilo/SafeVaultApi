@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Domain.Errors;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
@@ -22,10 +23,10 @@ namespace Domain.Entities
         public void Debit(decimal amount)
         {
             if (amount <= 0)
-                throw new InvalidOperationException("Amount must be greater than zero");
+                throw new DomainException("Amount must be greater than zero");
 
             if (Balance < amount)
-                throw new InvalidOperationException("Insufficient funds");
+                throw new DomainException("Insufficient funds");
 
             Balance -= amount;
         }
@@ -33,7 +34,7 @@ namespace Domain.Entities
         public void Credit(decimal amount)
         {
             if (amount <= 0)
-                throw new InvalidOperationException("Amount must be greater than zero");
+                throw new DomainException("Amount must be greater than zero");
 
             Balance += amount;
         }

@@ -61,7 +61,7 @@ namespace Application.Services
                     BalanceAfter = toAccount.Balance
                 });
 
-                await _uow.SaveChangesAsync();
+
                 await _uow.CommitAsync();
 
 
