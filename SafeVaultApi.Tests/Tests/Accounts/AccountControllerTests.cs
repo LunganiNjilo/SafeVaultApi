@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using NSubstitute;
 using SafeVaultApi.Models.Request;
 using SafeVaultApi.Models.Response;
@@ -192,6 +193,169 @@ namespace SafeVaultApi.Tests.Tests.Accounts
             Assert.That(result.Count(), Is.EqualTo(2));
             Assert.That(result.Select(a => a.AccountNumber), Is.EquivalentTo(new[] { "A1", "A2" }));
             await accountRepositoryMock.Received().GetByUserIdAsync(userId);
+        }
+
+        [Test]
+        public async Task CreateManualTransaction_Should_ReturnOK_When_Valid()
+        {
+            var account = new Account { Id = Guid.NewGuid(), Balance = 200 };
+            var accountId = account.Id;
+
+            accountRepositoryMock.GetByIdAsync(accountId).Returns(account);
+            transactionRepositoryMock.AddAsync(Arg.Any<Transaction>()).Returns(Task.CompletedTask);
+
+            var request = new CreateManualTransactionRequest
+            {
+                Amount = 50,
+                Type = TransactionType.Debit,
+                TransactionDate = DateTime.UtcNow,
+                Description = "Test manual debit"
+            };
+
+            var response = await _client.PostRawAsync(
+                $"/api/accounts/{accountId}/manual-transactions",
+                request);
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            await transactionRepositoryMock.Received().AddAsync(Arg.Any<Transaction>());
+            await accountRepositoryMock.Received().UpdateAsync(account);
+        }
+
+        [Test]
+        public async Task CreateManualTransaction_Should_ReturnBadRequest_When_AccountClosed()
+        {
+            var account = new Account { Id = Guid.NewGuid(), Balance = 200, IsClosed = true };
+            var accountId = account.Id;
+
+            accountRepositoryMock.GetByIdAsync(accountId).Returns(account);
+
+            var request = new CreateManualTransactionRequest
+            {
+                Amount = 50,
+                Type = TransactionType.Debit,
+                TransactionDate = DateTime.UtcNow
+            };
+
+            var response = await _client.PostRawAsync(
+                $"/api/accounts/{accountId}/manual-transactions",
+                request);
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            await transactionRepositoryMock.DidNotReceive().AddAsync(Arg.Any<Transaction>());
+        }
+
+        [Test]
+        public async Task UpdateManualTransaction_Should_ReturnBadRequest_When_NotManual()
+        {
+            var tx = new Transaction { Id = Guid.NewGuid(), IsManual = false };
+
+            transactionRepositoryMock.GetByIdAsync(tx.Id).Returns(tx);
+
+            var request = new UpdateManualTransactionRequest
+            {
+                Amount = 100,
+                Type = TransactionType.Debit,
+                TransactionDate = DateTime.UtcNow
+            };
+
+            var response = await _client.PutRawAsync(
+                $"/api/accounts/manual-transactions/{tx.Id}",
+                request);
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            await transactionRepositoryMock.DidNotReceive().UpdateAsync(Arg.Any<Transaction>());
+        }
+
+        [Test]
+        public async Task DeleteManualTransaction_Should_ReturnOK_When_Manual()
+        {
+            var tx = new Transaction { Id = Guid.NewGuid(), IsManual = true };
+
+            transactionRepositoryMock.GetByIdAsync(tx.Id).Returns(tx);
+            transactionRepositoryMock.DeleteAsync(tx).Returns(Task.CompletedTask);
+
+            var response = await _client.DeleteRawAsync(
+                $"/api/accounts/manual-transactions/{tx.Id}");
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            await transactionRepositoryMock.Received().DeleteAsync(tx);
+        }
+
+        [Test]
+        public async Task DeleteManualTransaction_Should_ReturnBadRequest_When_NotManual()
+        {
+            var tx = new Transaction { Id = Guid.NewGuid(), IsManual = false };
+
+            transactionRepositoryMock.GetByIdAsync(tx.Id).Returns(tx);
+
+            var response = await _client.DeleteRawAsync(
+                $"/api/accounts/manual-transactions/{tx.Id}");
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            await transactionRepositoryMock.DidNotReceive().DeleteAsync(Arg.Any<Transaction>());
+        }
+
+        [Test]
+        public async Task CloseAccount_Should_ReturnNoContent_When_BalanceIsZero()
+        {
+            // Arrange
+            var account = new Account
+            {
+                Id = Guid.NewGuid(),
+                Balance = 0m,
+                IsClosed = false
+            };
+
+            accountRepositoryMock.GetByIdAsync(account.Id).Returns(account);
+            accountRepositoryMock.UpdateAsync(account).Returns(Task.CompletedTask);
+
+            // Act
+            var response = await _client.PostRawAsync($"/api/accounts/{account.Id}/close");
+
+            // Assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+
+            await accountRepositoryMock.Received().UpdateAsync(Arg.Is<Account>(a =>
+                a.Id == account.Id && a.IsClosed == true));
+        }
+
+        [Test]
+        public async Task CloseAccount_Should_ReturnNotFound_When_AccountDoesNotExist()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            accountRepositoryMock.GetByIdAsync(id).Returns((Account?)null);
+
+            // Act
+            var response = await _client.PostRawAsync($"/api/accounts/{id}/close");
+
+            // Assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
+            await accountRepositoryMock.DidNotReceive().UpdateAsync(Arg.Any<Account>());
+        }
+
+        [Test]
+        public async Task CloseAccount_Should_ReturnBadRequest_When_BalanceNotZero()
+        {
+            // Arrange
+            var account = new Account
+            {
+                Id = Guid.NewGuid(),
+                Balance = 50m,
+                IsClosed = false
+            };
+
+            accountRepositoryMock.GetByIdAsync(account.Id).Returns(account);
+
+            // Act
+            var response = await _client.PostRawAsync($"/api/accounts/{account.Id}/close");
+
+            // Assert
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+
+            // UpdateAsync should NOT be called
+            await accountRepositoryMock.DidNotReceive()
+                .UpdateAsync(Arg.Any<Account>());
         }
     }
 }

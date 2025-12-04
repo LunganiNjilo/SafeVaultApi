@@ -15,6 +15,8 @@ namespace Domain.Entities
         public string Currency { get; set; } = "ZAR";
         public AccountType AccountType { get; set; } = AccountType.Current;
 
+        public bool IsClosed { get; set; } = false;
+
         [Timestamp]
         public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 
@@ -37,6 +39,14 @@ namespace Domain.Entities
                 throw new DomainException("Amount must be greater than zero");
 
             Balance += amount;
+        }
+
+        public void ApplyManualTransaction(TransactionType type, decimal amount)
+        {
+            if (type == TransactionType.Debit)
+                Debit(amount);
+            else
+                Credit(amount);
         }
 
     }

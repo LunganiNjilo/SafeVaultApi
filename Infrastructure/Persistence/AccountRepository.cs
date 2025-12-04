@@ -49,6 +49,12 @@ namespace Infrastructure.Persistence
             return Task.CompletedTask;
         }
 
+        public async Task<bool> UserHasOpenAccountsAsync(Guid userId)
+        {
+            return await _db.Accounts
+                .AnyAsync(a => a.UserId == userId && !a.IsClosed);
+        }
+
         public async Task ExecuteInTransactionAsync(Func<Task> operation)
         {
             using var transaction = await _db.Database.BeginTransactionAsync();

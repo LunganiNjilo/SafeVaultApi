@@ -32,5 +32,24 @@ namespace SafeVaultApi.Controllers
 
             return Ok(new { success = true, message = "Profile updated successfully" });
         }
+
+        [HttpDelete("{userId:guid}")]
+        public async Task<IActionResult> DeleteUser(Guid userId)
+        {
+            var result = await _userService.DeleteUserAsync(userId);
+
+            if (!result.Success)
+            {
+                // You can either throw ApiException or just return BadRequest
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    result.Message
+                );
+            }
+
+            return Ok(new { success = true, message = result.Message });
+        }
+
     }
 }

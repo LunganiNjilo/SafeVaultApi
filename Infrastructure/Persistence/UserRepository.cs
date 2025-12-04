@@ -23,11 +23,6 @@ namespace Infrastructure.Persistence
             return await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public Task<User?> GetByNumberAsync(string accountNumber)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task AddAsync(User user)
         {
             await _db.Users.AddAsync(user);
@@ -38,6 +33,17 @@ namespace Infrastructure.Persistence
         {
             _db.Users.Update(user);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(User user)
+        {
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task<User?> GetByIdNumberAsync(string idNumber)
+        {
+            return await _db.Users.FirstOrDefaultAsync(u => u.IdNumber == idNumber);
         }
     }
 }

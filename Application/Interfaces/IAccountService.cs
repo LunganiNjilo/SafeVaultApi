@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Models;
+using Domain.Entities;
 namespace Application.Interfaces
 {
     public interface IAccountService
@@ -7,5 +8,6 @@ namespace Application.Interfaces
         Task<decimal> GetBalanceAsync(string accountNumber);
         Task<Transaction> CreditAsync(string accountNumber, decimal amount, string description);
         Task<Transaction> DebitAsync(string accountNumber, decimal amount, string description);
+        Task<UserServiceResult> CloseAccountAsync(Guid accountId);
     }
 }

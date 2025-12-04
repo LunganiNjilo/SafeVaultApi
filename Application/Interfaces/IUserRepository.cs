@@ -6,8 +6,9 @@ namespace Application.Interfaces
     {
         Task<User?> GetByIdAsync(Guid id);
         Task<User?> GetByEmailAsync(string email);
-        Task<User?> GetByNumberAsync(string accountNumber);
         Task AddAsync(User account);
         Task UpdateAsync(User account);
+        Task DeleteAsync(User account);
+        Task<User?> GetByIdNumberAsync(string idNumber);
     }
 }

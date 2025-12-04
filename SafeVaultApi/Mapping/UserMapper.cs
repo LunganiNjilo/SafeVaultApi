@@ -15,6 +15,7 @@ namespace SafeVaultApi.Mapping
                 LastName = request.LastName,
                 Email = request.Email,
                 Password = request.Password,
+                IdNumber = request.IdNumber
             };
 
         }

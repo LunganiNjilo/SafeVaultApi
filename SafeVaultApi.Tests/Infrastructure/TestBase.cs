@@ -13,6 +13,7 @@ namespace SafeVaultApi.Tests.Infrastructure
         protected IAccountRepository accountRepositoryMock { get; }
         protected ITransactionRepository transactionRepositoryMock { get; }
         protected IUnitOfWork uowMock { get; }
+        protected IUserRepository userRepositoryMock { get;}
 
         protected TestBase()
         {
@@ -20,6 +21,7 @@ namespace SafeVaultApi.Tests.Infrastructure
             accountRepositoryMock = Substitute.For<IAccountRepository>();
             transactionRepositoryMock = Substitute.For<ITransactionRepository>();
             uowMock = Substitute.For<IUnitOfWork>();
+            userRepositoryMock = Substitute.For<IUserRepository>();
 
             // create factory and register substitutes in DI
             _factory = new CustomWebApplicationFactory<Program>(services =>
@@ -28,6 +30,7 @@ namespace SafeVaultApi.Tests.Infrastructure
                 services.AddScoped(_ => accountRepositoryMock);
                 services.AddScoped(_ => transactionRepositoryMock);
                 services.AddScoped(_ => uowMock);
+                services.AddScoped(_ => userRepositoryMock);
                 // register any other mocks here if you want defaults
             });
 

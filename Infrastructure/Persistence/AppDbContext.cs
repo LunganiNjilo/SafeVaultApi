@@ -19,7 +19,7 @@ namespace Infrastructure.Persistence
             // --- User ---
             modelBuilder.Entity<User>(b =>
             {
-                b.ToTable("Users");
+                b.ToTable("tb_Users");
                 b.HasKey(u => u.Id);
                 b.Property(u => u.FirstName)
                  .IsRequired()
@@ -47,7 +47,7 @@ namespace Infrastructure.Persistence
             // --- Account ---
             modelBuilder.Entity<Account>(b =>
             {
-                b.ToTable("Accounts");
+                b.ToTable("tb_Accounts");
                 b.HasKey(a => a.Id);
 
                 b.Property(a => a.AccountNumber)
@@ -78,7 +78,7 @@ namespace Infrastructure.Persistence
             // --- Transaction ---
             modelBuilder.Entity<Transaction>(b =>
             {
-                b.ToTable("Transactions");
+                b.ToTable("tb_Transactions");
                 b.HasKey(t => t.Id);
 
                 // ⭐ All financial fields must be precise

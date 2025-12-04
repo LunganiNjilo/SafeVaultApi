@@ -13,5 +13,7 @@ namespace Domain.Entities
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public decimal BalanceAfter { get; set; }
+
+        public bool IsManual { get; set; } = false;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Common.Exceptions;
 using Application.Enums;
 using Application.Interfaces;
+using Application.Models;
 using Domain.Entities;
 using Domain.Enums;
 using Domain.Errors;
@@ -42,11 +43,41 @@ namespace Application.Services
             return await PerformTransaction(number, amount, description, TransactionType.Debit);
         }
 
-        private async Task<Transaction> PerformTransaction(
-            string number,
-            decimal amount,
-            string description,
-            TransactionType type)
+        public async Task<UserServiceResult> CloseAccountAsync(Guid accountId)
+        {
+            var account = await _accounts.GetByIdAsync(accountId);
+
+            if (account == null)
+                throw new ApiException(
+                    (int)HttpStatusCode.NotFound,
+                    ErrorType.NotFound,
+                    "Account not found."
+                );
+
+            if (account.Balance != 0)
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    "Cannot close an account with non-zero balance."
+                );
+
+            account.IsClosed = true;
+
+            await _accounts.UpdateAsync(account);
+
+            return new UserServiceResult
+            {
+                Success = true,
+                Message = "Account closed successfully"
+            };
+        }
+
+        public Task<IEnumerable<Account>> GetByUserIdAsync(Guid userId)
+        {
+            return _accounts.GetByUserIdAsync(userId);
+        }
+
+        private async Task<Transaction> PerformTransaction(string number,decimal amount,string description,TransactionType type)
         {
             await _uow.BeginTransactionAsync();
 
@@ -55,7 +86,6 @@ namespace Application.Services
                 var acct = await _accounts.GetByAccountNumberAsync(number)
                     ?? throw new ApiException((int)HttpStatusCode.NotFound, ErrorType.NotFound, "Account not found.");
 
-                // APPLY DOMAIN BEHAVIOR (not raw balance math)
                 switch (type)
                 {
                     case TransactionType.Credit:
@@ -103,11 +133,6 @@ namespace Application.Services
                 await _uow.RollbackAsync();
                 throw;
             }
-        }
-
-        public Task<IEnumerable<Account>> GetByUserIdAsync(Guid userId)
-        {
-           return _accounts.GetByUserIdAsync(userId);
         }
     }
 }

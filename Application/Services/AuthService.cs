@@ -25,12 +25,13 @@ namespace Application.Services
             if (!_hasher.Verify(password, user.PasswordHash))
                 return new LoginResult { Success = false };
 
-            // SUCCESS
             return new LoginResult
             {
                 Success = true,
                 UserId = user.Id,
-                Email = user.Email
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
             };
         }
     }

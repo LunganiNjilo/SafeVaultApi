@@ -1,8 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Enums;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SafeVaultApi.Mapping;
 using SafeVaultApi.Models.Request;
 using SafeVaultApi.Models.Response;
+using System.Net;
 
 namespace SafeVaultApi.Controllers
 {
@@ -11,10 +14,12 @@ namespace SafeVaultApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accounts;
+        private readonly IManualTransactionService _manualTransactionService;
 
-        public AccountController(IAccountService accounts)
+        public AccountController(IAccountService accounts, IManualTransactionService manualTransactionService)
         {
             _accounts = accounts;
+            _manualTransactionService = manualTransactionService;
         }
 
         [HttpGet("{accountNumber}/balance")]
@@ -56,6 +61,71 @@ namespace SafeVaultApi.Controllers
         {
             var accounts = await _accounts.GetByUserIdAsync(userId);
             return Ok(AccountMapper.ToResponse(accounts));
+        }
+
+        [HttpPost("{accountId}/close")]
+        public async Task<IActionResult> CloseAccount(Guid accountId)
+        {
+            await _accounts.CloseAccountAsync(accountId);
+            return NoContent();
+        }
+
+        [HttpPost("{accountId:guid}/manual-transactions")]
+        public async Task<IActionResult> CreateManualTransaction(
+            Guid accountId,
+            [FromBody] CreateManualTransactionRequest request)
+        {
+            request.AccountId = accountId;
+
+            var result = await _manualTransactionService.CreateManualAsync(
+                ManualTransactionMapper.ToCommand(request)
+            );
+
+            if (!result.Success)
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    result.Message
+                );
+
+            return Ok(new { success = true, message = result.Message });
+        }
+
+        [HttpPut("manual-transactions/{transactionId:guid}")]
+        public async Task<IActionResult> UpdateManualTransaction(
+            Guid transactionId,
+            [FromBody] UpdateManualTransactionRequest request)
+        {
+            request.TransactionId = transactionId;
+
+            var result = await _manualTransactionService.UpdateManualAsync(
+                ManualTransactionMapper.ToCommand(request)
+            );
+
+            if (!result.Success)
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    result.Message
+                );
+
+            return Ok(new { success = true, message = result.Message });
+        }
+
+        [HttpDelete("manual-transactions/{transactionId:guid}")]
+        public async Task<IActionResult> DeleteManualTransaction(Guid transactionId)
+        {
+            var result = await _manualTransactionService.DeleteManualAsync(transactionId);
+
+            if (!result.Success)
+                throw new ApiException(
+                    (int)HttpStatusCode.BadRequest,
+                    ErrorType.BadRequest,
+                    result.Message
+                );
+
+            return Ok(new { success = true, message = result.Message });
+
         }
     }
 }

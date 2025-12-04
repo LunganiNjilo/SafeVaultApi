@@ -15,6 +15,7 @@ namespace Application.Extensions
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IManualTransactionService, ManualTransactionService>();
 
             return services;
         }
