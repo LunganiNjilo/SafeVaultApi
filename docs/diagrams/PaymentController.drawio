@@ -1,0 +1,95 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.2.3">
+  <diagram name="Page-1" id="g4r2OcjWJCn946btBPgc">
+    <mxGraphModel dx="1426" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7_vokdO1xnG_hWXilaCx-10" edge="1" parent="1" source="7_vokdO1xnG_hWXilaCx-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=open;endFill=0;dashed=1;endSize=8;" target="7_vokdO1xnG_hWXilaCx-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="PaymentController" vertex="1">
+          <mxGeometry height="86" width="240" x="245" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-2" parent="7_vokdO1xnG_hWXilaCx-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ _paymentService: IPaymentService" vertex="1">
+          <mxGeometry height="26" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-3" parent="7_vokdO1xnG_hWXilaCx-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-4" parent="7_vokdO1xnG_hWXilaCx-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Pay(type): Task" vertex="1">
+          <mxGeometry height="26" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-13" edge="1" parent="1" source="7_vokdO1xnG_hWXilaCx-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;endSize=8;dashed=1;" target="7_vokdO1xnG_hWXilaCx-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-16" edge="1" parent="1" source="7_vokdO1xnG_hWXilaCx-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=open;endFill=0;dashed=1;endSize=8;" target="7_vokdO1xnG_hWXilaCx-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="630" />
+              <mxPoint x="160" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-17" edge="1" parent="1" source="7_vokdO1xnG_hWXilaCx-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;endArrow=open;endFill=0;endSize=8;" target="7_vokdO1xnG_hWXilaCx-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="630" />
+              <mxPoint x="460" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="PaymentService" vertex="1">
+          <mxGeometry height="112" width="250" x="240" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-6" parent="7_vokdO1xnG_hWXilaCx-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ _repo: IPaymentRepository&lt;div&gt;+&amp;nbsp;_provider:&amp;nbsp;IHttpPaymentProvider&lt;/div&gt;" vertex="1">
+          <mxGeometry height="34" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-7" parent="7_vokdO1xnG_hWXilaCx-5" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-8" parent="7_vokdO1xnG_hWXilaCx-5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ PayAsync(type): Task&amp;lt;PaymentResult&amp;gt;" vertex="1">
+          <mxGeometry height="44" width="250" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-9" parent="1" style="html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentService&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="110" x="310" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-11" parent="1" style="html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" value="«interface»&lt;br&gt;&lt;b&gt;IPaymentRepository&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="90" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-12" parent="1" style="html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" value="«interface»&lt;br&gt;&lt;b&gt;IHttpPaymentProvider&lt;/b&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="390" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-26" edge="1" parent="1" source="7_vokdO1xnG_hWXilaCx-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;dashed=1;endSize=8;" target="7_vokdO1xnG_hWXilaCx-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-18" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="PaymentRepository" vertex="1">
+          <mxGeometry height="110" width="260" x="30" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-19" parent="7_vokdO1xnG_hWXilaCx-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ _db: AppDbContext" vertex="1">
+          <mxGeometry height="26" width="260" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-20" parent="7_vokdO1xnG_hWXilaCx-18" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="260" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-21" parent="7_vokdO1xnG_hWXilaCx-18" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ GetAccountAsync(type): Task&amp;lt;Account?&amp;gt;&lt;div&gt;+&amp;nbsp;UpdateBalanceAsync(type):&amp;nbsp;Task&lt;/div&gt;&lt;div&gt;+&amp;nbsp;AddTransactionAsync(type):&amp;nbsp;Task&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="260" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-31" edge="1" parent="1" source="7_vokdO1xnG_hWXilaCx-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;dashed=1;endSize=8;" target="7_vokdO1xnG_hWXilaCx-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-22" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="HttpPaymentProvider" vertex="1">
+          <mxGeometry height="86" width="310" x="305" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-23" parent="7_vokdO1xnG_hWXilaCx-22" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ _http: HttpClient" vertex="1">
+          <mxGeometry height="26" width="310" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-24" parent="7_vokdO1xnG_hWXilaCx-22" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="310" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="7_vokdO1xnG_hWXilaCx-25" parent="7_vokdO1xnG_hWXilaCx-22" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ SendPaymentAsync(type): Task&amp;lt;PaymentResult?&amp;gt;" vertex="1">
+          <mxGeometry height="26" width="310" y="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
