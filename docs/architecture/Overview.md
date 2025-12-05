@@ -7,7 +7,7 @@ The application acts as a secure banking backend powering the SafeVault SPA. It 
 ---
 
 ## 🧩 High-Level Architecture
-![System Overview](docs/diagrams/BankingDiagram.drawio.png)
+![System Overview](../diagrams/BankingDiagram.png)
 
 - **Frontend (Vue.js SPA):** Secure Single Page App for customer banking journeys  
 - **API (.NET 8):** Business rules, transactional logic, validation  
@@ -65,4 +65,5 @@ SafeVault is built to be upgraded into a full banking system:
 - Cloud native deployment
 
 The foundation is ready — scale can happen anytime 🚀
+
 
