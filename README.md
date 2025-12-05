@@ -1,97 +1,39 @@
 # 🔐 SafeVault API
 
-## Overview
+SafeVault is the backend for a modern digital banking experience.  
+It provides a **.NET 8 Clean Architecture Web API** that exposes endpoints for:
 
-SafeVault is a modern digital banking Single Page Application that allows a user to view their accounts, perform transfers, purchase airtime, and review transaction history in a way that reflects how a real banking app (e.g., Standard Bank) behaves.
+- Users (Persons)
+- Accounts
+- Transactions
 
-The backend in this repository is a **.NET (Clean Architecture) Web API** that:
+The API supports:
 
-- Exposes endpoints for **Users (Persons)**, **Accounts**, and **Transactions**
-- Enforces the business rules from the assessment
-- Integrates with a SQL Server database via **Entity Framework Core**
-- Supports front-end flows for login, viewing accounts, transferring funds, buying airtime, and viewing transactions
+- Viewing accounts and balances
+- Internal transfers between accounts
+- Airtime purchases via an external stub
+- Viewing transaction history
 
-The system closely follows the assessment brief (Persons, Accounts, Transactions), but applies **real-world banking constraints**:
-
-- A user only sees and operates **their own** data  
-- Accounts are **pre-provisioned** by the system (as banks do), not created ad hoc through the UI  
-- Balances are **system-controlled** and updated only via transactions  
-- All transactions are recorded and auditable
+A separate Vue.js SPA (SafeVault UI) consumes this API.
 
 ---
 
-## How This Solution Covers the Assessment Requirements
+## 🚀 Tech Stack
 
-SafeVault implements the “persons, accounts, and transactions” assessment brief in the context of a realistic digital banking application.
-
-Instead of exposing a generic CRUD view over all persons and accounts, the system behaves like an actual banking app:
-
-- The user logs in and operates only on **their own** data.
-- Person details are available and editable through a **Profile** section in the UI.
-- A **Home dashboard** shows all accounts belonging to the logged-in user, with options to transfer funds and perform payments.
-- A **Transactions** view allows the user to inspect the history of each account.
-- Airtime purchases and internal transfers are fully wired end-to-end, updating balances and recording transactions in the database.
-
-All of this is backed by:
-
-- A **Vue.js SPA** (in the UI repository)
-- This **.NET Clean Architecture API**
-- A **SQL Server** database with `User`, `Account`, and `Transaction` entities
-- A **DB initializer** that pre-creates sample persons, accounts, and transactions as required by the assessment script
-
-Where the original assessment describes “Persons List”, “Person Details”, “Account Details”, and “Transaction Details” pages, SafeVault delivers the same capabilities through banking-oriented screens and flows that match real-world expectations, while still satisfying the underlying functional and validation requirements.
+- **API:** .NET 8 Web API (Clean Architecture)
+- **Database:** SQL Server (production)
+- **ORM:** Entity Framework Core
+- **Containerisation:** Docker & Docker Compose
+- **Frontend:** Vue.js SPA (separate repository)
+- **Testing:** NUnit + WebApplicationFactory + NSubstitute
 
 ---
 
-## 🧱 Architecture & Diagrams
+## 📦 Quick Start
 
-### C4 Context / Sequence Overview
+### Option 1 — Run API locally
 
-This diagram shows the flow from the **Vue.js UI** → **API** → **Database** and external stub:
-
-- User interacts with the SPA
-- SPA calls this API
-- API reads/writes `User`, `Account`, and `Transaction`
-- API calls an external **stub service** to simulate a purchase (e.g., airtime)
-
-![System / Sequence Overview](docs/diagrams/BankingDiagram.drawio.png)
-
-### ERD (Database)
-
-The ERD reflects the core assessment tables:
-
-- `User` (Person)
-- `Account`
-- `Transaction`
-
-Relationships:
-
-- **User → Accounts**: one-to-many  
-- **Account → Transactions**: one-to-many
-
-![ERD](docs/diagrams/ERD.drawio.png)
-
-### Controller / Component Structure
-
-Class diagrams show the main controllers and how they interact with the application/services layer.
-
-#### Accounts Controller
-![Controllers / Components](docs/diagrams/AccountController.drawio.png)
-
-#### Airtime Controller
-![Controllers / Components](docs/diagrams/AirtimeController.drawio.png)
-
-#### Auth Controller
-![Controllers / Components](docs/diagrams/AuthController.drawio.png)
-
-#### Payment Controller
-![Controllers / Components](docs/diagrams/PaymentController.drawio.png)
-
-#### Transaction Controller
-![Controllers / Components](docs/diagrams/TransactionController.drawio.png)
-
-#### Transfer Controller
-![Controllers / Components](docs/diagrams/TransferController.drawio.png)
-
-#### User Controller
-![Controllers / Components](docs/diagrams/UserController.drawio.png)
+```bash
+dotnet restore
+dotnet build
+dotnet run --project SafeVaultApi
