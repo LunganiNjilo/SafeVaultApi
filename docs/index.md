@@ -7,7 +7,7 @@ Use this page to navigate all documentation for the SafeVault API.
 ## 🔐 Overview & Architecture
 
 - [Architecture Overview](architecture/Overview.md)
-- [Database ERD](architecture/ERD.md) 
+- [Database ERD](architecture/Database_ERD.md) 
 - [C4 Context / System Diagram](architecture/C4-Context.md) 
 - [Sequence Flows](architecture/SequenceFlows.md) 
 - [Class Diagrams](architecture/ClassDiagrams.md) 
@@ -30,3 +30,4 @@ Use this page to navigate all documentation for the SafeVault API.
 ## 📋 Assessment Alignment
 
 - [How SafeVault Meets the Assessment Requirements](requirements/AssessmentAlignment.md)
+
