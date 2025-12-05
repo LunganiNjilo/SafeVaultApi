@@ -63,7 +63,10 @@ builder.Services.AddCustomErrorHandling();
 var app = builder.Build();
 
 // apply migrations + seed
-await app.ApplyMigrationsAsync();
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    await app.ApplyMigrationsAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
