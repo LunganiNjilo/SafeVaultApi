@@ -1,0 +1,111 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.2.4">
+  <diagram name="Page-1" id="8uXB7LIrx_ACgLquRxIQ">
+    <mxGraphModel dx="872" dy="465" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#dae8fc;strokeColor=#6c8ebf;" value="SafeVault UI" vertex="1">
+          <mxGeometry height="300" width="100" x="270" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-3" parent="G_EnuBrjMTHI7mlq9Zd_-1" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="120" width="10" x="45" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-10" edge="1" parent="1" source="G_EnuBrjMTHI7mlq9Zd_-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" target="G_EnuBrjMTHI7mlq9Zd_-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="160" />
+              <mxPoint x="270" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-11" connectable="0" parent="G_EnuBrjMTHI7mlq9Zd_-10" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="View Transaction" vertex="1">
+          <mxGeometry relative="1" x="-0.0844" y="-2" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;fillColor=#e1d5e7;strokeColor=#9673a6;" value="" vertex="1">
+          <mxGeometry height="300" width="20" x="110" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-4" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#dae8fc;strokeColor=#6c8ebf;" value="SafeVault API" vertex="1">
+          <mxGeometry height="300" width="100" x="430" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-5" parent="G_EnuBrjMTHI7mlq9Zd_-4" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="120" width="10" x="45" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fillColor=#dae8fc;strokeColor=#6c8ebf;" value="SafeVault DB" vertex="1">
+          <mxGeometry height="300" width="100" x="610" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-7" parent="G_EnuBrjMTHI7mlq9Zd_-6" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value="" vertex="1">
+          <mxGeometry height="120" width="10" x="45" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-8" edge="1" parent="1" source="G_EnuBrjMTHI7mlq9Zd_-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" target="G_EnuBrjMTHI7mlq9Zd_-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="180" />
+              <mxPoint x="410" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-13" connectable="0" parent="G_EnuBrjMTHI7mlq9Zd_-8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Get Account Transactions" vertex="1">
+          <mxGeometry relative="1" x="-0.32" y="-2" as="geometry">
+            <mxPoint x="24" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-9" edge="1" parent="1" source="G_EnuBrjMTHI7mlq9Zd_-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" target="G_EnuBrjMTHI7mlq9Zd_-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="190" />
+              <mxPoint x="580" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-14" connectable="0" parent="G_EnuBrjMTHI7mlq9Zd_-9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Get Account Transactions" vertex="1">
+          <mxGeometry relative="1" x="-0.0941" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-12" edge="1" parent="1" source="G_EnuBrjMTHI7mlq9Zd_-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;dashed=1;" target="G_EnuBrjMTHI7mlq9Zd_-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="220" />
+              <mxPoint x="570" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-17" connectable="0" parent="G_EnuBrjMTHI7mlq9Zd_-12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Return Account Transactions&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="0.2706" y="2" as="geometry">
+            <mxPoint x="23" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-15" edge="1" parent="1" source="G_EnuBrjMTHI7mlq9Zd_-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;dashed=1;" target="G_EnuBrjMTHI7mlq9Zd_-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="240" />
+              <mxPoint x="390" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-20" connectable="0" parent="G_EnuBrjMTHI7mlq9Zd_-15" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Account Transactions&amp;nbsp;" vertex="1">
+          <mxGeometry relative="1" x="0.16" y="1" as="geometry">
+            <mxPoint x="12" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-16" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;dashed=1;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="249.5" />
+              <mxPoint x="180" y="249.5" />
+            </Array>
+            <mxPoint x="315" y="249.5" as="sourcePoint" />
+            <mxPoint x="119.5" y="249.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="G_EnuBrjMTHI7mlq9Zd_-19" connectable="0" parent="G_EnuBrjMTHI7mlq9Zd_-16" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Transaction History" vertex="1">
+          <mxGeometry relative="1" x="0.3504" y="1" as="geometry">
+            <mxPoint x="27" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
