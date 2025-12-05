@@ -53,17 +53,5 @@ More detailed diagrams can be found here:
 
 ---
 
-## 🛠️ Future Expandability
-
-SafeVault is built to be upgraded into a full banking system:
-
-- Multi-user auth & role-based access
-- Real payment gateways
-- Rich fraud & audit logging
-- More account types
-- Mobile App integration
-- Cloud native deployment
-
-The foundation is ready — scale can happen anytime 🚀
 
 
