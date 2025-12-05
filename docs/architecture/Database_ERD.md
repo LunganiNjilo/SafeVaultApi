@@ -95,13 +95,3 @@ This ERD supports:
 
 ---
 
-## 📈 Future Expansion
-
-| Feature | Impact |
-|--------|-------|
-| Multiple Users authentication | Supports real multi-customer system |
-| More Account Types | (Credit card, loans, investments) |
-| Transaction Fees & Reversals | Better financial control |
-| Account closure auditing | Regulatory compliance |
-
-The model is intentionally simple — but **rock solid** as a foundation for a production banking system.
