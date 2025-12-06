@@ -32,7 +32,7 @@ Example:
 
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost,1433;Database=SafeVaultDb;User Id=sa;Password=P@ssw0rd!;TrustServerCertificate=True"
+  "Server=(localdb)\\MSSQLLocalDB;Database=SafeVaultDb;Trusted_Connection=True;MultipleActiveResultSets=true"
 }
 ```
 
@@ -92,4 +92,5 @@ You can now explore and test all API endpoints interactively.
 ---
 
 ✔️ You’re now running the SafeVault API locally!
+
 
