@@ -11,22 +11,24 @@ namespace Infrastructure.Persistence
             if (await db.Users.AnyAsync())
                 return;
 
-            var user = new User
+            // ============================
+            // PRIMARY USER (Demo User)
+            // ============================
+            var user1 = new User
             {
                 FirstName = "Lungani",
                 LastName = "Nhilo",
                 IdNumber = "9001015800081",
                 DateOfBirth = new DateTime(1990, 01, 01),
-                Email = "test@local.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("P@ssw0rd!")
+                Email = "test@safesystems.dev",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Pass@123")
             };
 
-            await db.Users.AddAsync(user);
+            await db.Users.AddAsync(user1);
 
-            // --- SOURCE ACCOUNT (Current) ---
-            var currentAccount = new Account
+            var user1Current = new Account
             {
-                User = user,
+                User = user1,
                 Name = "Current Account",
                 AccountNumber = "SV-1000001",
                 Balance = 1000M,
@@ -34,66 +36,74 @@ namespace Infrastructure.Persistence
                 AccountType = AccountType.Current
             };
 
-            // --- DESTINATION ACCOUNT (Savings) ---
-            var savingsAccount = new Account
+            var user1Savings = new Account
             {
-                User = user,
-                Name = "My Savings Account",
+                User = user1,
+                Name = "Savings Account",
                 AccountNumber = "SV-1000002",
-                Balance = 0M,
+                Balance = 500M,
                 Currency = "ZAR",
                 AccountType = AccountType.Savings
             };
 
-            await db.Accounts.AddRangeAsync(currentAccount, savingsAccount);
+            await db.Accounts.AddRangeAsync(user1Current, user1Savings);
 
-            // ---- INITIAL BALANCE TRANSACTION ----
-            var initialTx = new Transaction
+            await db.Transactions.AddAsync(new Transaction
             {
-                Account = currentAccount,
+                Account = user1Current,
                 Amount = 1000M,
                 Fee = 0,
                 Type = TransactionType.Credit,
                 Description = "Initial balance",
                 BalanceAfter = 1000M
+            });
+
+            // ============================
+            // SECONDARY USER
+            // ============================
+            var user2 = new User
+            {
+                FirstName = "Alex",
+                LastName = "Molefe",
+                IdNumber = "9205124800089",
+                DateOfBirth = new DateTime(1992, 05, 12),
+                Email = "user@safevault.io",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Pass@123")
             };
 
-            await db.Transactions.AddAsync(initialTx);
+            await db.Users.AddAsync(user2);
 
-            // ===============================
-            // INTERNAL TRANSFER: R200
-            // FROM Current > Savings
-            // ===============================
-
-            decimal transferAmount = 200M;
-
-            // Debit from Current
-            var debitTx = new Transaction
+            var user2Current = new Account
             {
-                Account = currentAccount,
-                Amount = transferAmount,
-                Fee = 0,
-                Type = TransactionType.Debit,
-                Description = "Transfer to Savings",
-                BalanceAfter = currentAccount.Balance - transferAmount
+                User = user2,
+                Name = "Everyday Account",
+                AccountNumber = "SV-2000001",
+                Balance = 750M,
+                Currency = "ZAR",
+                AccountType = AccountType.Current
             };
 
-            currentAccount.Balance -= transferAmount;
-
-            // Credit to Savings
-            var creditTx = new Transaction
+            var user2Savings = new Account
             {
-                Account = savingsAccount,
-                Amount = transferAmount,
+                User = user2,
+                Name = "Savings Account",
+                AccountNumber = "SV-2000002",
+                Balance = 300M,
+                Currency = "ZAR",
+                AccountType = AccountType.Savings
+            };
+
+            await db.Accounts.AddRangeAsync(user2Current, user2Savings);
+
+            await db.Transactions.AddAsync(new Transaction
+            {
+                Account = user2Current,
+                Amount = 750M,
                 Fee = 0,
                 Type = TransactionType.Credit,
-                Description = "Transfer from Current",
-                BalanceAfter = savingsAccount.Balance + transferAmount
-            };
-
-            savingsAccount.Balance += transferAmount;
-
-            await db.Transactions.AddRangeAsync(debitTx, creditTx);
+                Description = "Initial balance",
+                BalanceAfter = 750M
+            });
 
             await db.SaveChangesAsync();
         }
