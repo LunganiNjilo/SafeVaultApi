@@ -31,18 +31,14 @@ A separate Vue.js SPA (SafeVault UI) consumes this API.
 
 ## 📦 Quick Start
 
-### Option 1 — Run API locally
-
-<pre><code>
-dotnet restore
-dotnet build
-dotnet run --project SafeVaultApi
-</code></pre>
+The **recommended** way to run SafeVault is via **Docker Compose**, so that the API and SQL Server run together in containers.  
+Local-only execution is still available for development and debugging.
 
 ---
-### Option 2 — Run API + SQL via Docker Compose
 
-If you have a docker-compose.yml in the repo root, you can start the API and SQL Server together:
+### Option 1 — Run API + SQL via Docker Compose (Recommended)
+
+If you have a `docker-compose.yml` in the repo root, you can start the API and SQL Server together:
 
 <pre><code>
 docker compose up --build
@@ -59,6 +55,21 @@ Once up and running, access Swagger UI:
 ➡️ `http://localhost:8080/swagger`
 
 > ⚠️ Ports may vary depending on your `docker-compose.yml`.
+
+For more detailed container setup and usage, see:  
+➡️ `docs/setup/DockerCompose.md`
+
+---
+
+### Option 2 — Run API locally
+
+<pre><code>
+dotnet restore
+dotnet build
+dotnet run --project SafeVaultApi
+</code></pre>
+
+> This option requires a reachable SQL Server instance and appropriate configuration.
 
 ---
 
@@ -94,7 +105,6 @@ Start here:
 You can navigate to:
 
 - Architecture Overview
-- C4 Context Diagram
 - ERD & Domain Modelling
 - Sequence & Class Diagrams
 - Setup Guides (Local + Docker)
@@ -110,4 +120,3 @@ Frontend SPA for this API:
 ➡️ **SafeVault UI:** <https://github.com/LunganiNjilo/safevault-ui>
 
 ---
-
