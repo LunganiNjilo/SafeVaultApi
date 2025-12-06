@@ -45,10 +45,8 @@ This will:
 
 Once the containers are running, you can access:
 
-- Swagger UI: https://localhost:5001/swagger  
-- HTTP API:  http://localhost:5000  
-- HTTPS API: https://localhost:5001  
-
+- Swagger UI: https://localhost:8080/swagger  
+- HTTP API:  http://localhost:8080  
 ---
 
 ## 🗄 Database Connection
@@ -121,3 +119,4 @@ Then run the API project locally:
 This setup keeps the database in Docker while allowing hot reload and local debugging for the API.
 
 ---
+
