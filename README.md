@@ -94,7 +94,6 @@ Start here:
 You can navigate to:
 
 - Architecture Overview
-- C4 Context Diagram
 - ERD & Domain Modelling
 - Sequence & Class Diagrams
 - Setup Guides (Local + Docker)
