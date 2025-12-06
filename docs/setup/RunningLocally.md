@@ -25,7 +25,7 @@ You should see a version starting with `8.`
 Check your connection string located in:
 
 ```
-SafeVaultApi/appsettings.Development.json
+SafeVaultApi/appsettings.json
 ```
 
 Example:
@@ -66,7 +66,7 @@ dotnet run --project SafeVaultApi
 If successful, the API will start and display a URL like:
 
 ```
-http://localhost:8080
+http://localhost:5165
 ```
 
 ---
@@ -75,7 +75,7 @@ http://localhost:8080
 
 Once the server is running, open in browser:
 
-➡️ http://localhost:8080/swagger
+➡️ http://localhost:5165/swagger
 
 You can now explore and test all API endpoints interactively.
 
@@ -92,3 +92,4 @@ You can now explore and test all API endpoints interactively.
 ---
 
 ✔️ You’re now running the SafeVault API locally!
+
