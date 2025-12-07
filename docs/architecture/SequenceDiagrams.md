@@ -49,6 +49,9 @@ Each flow below directly maps to key requirements of the assessment.
 ✔ Full audit of balance movements  
 ✔ Ordered history shown to user  
 
+## 7️⃣ External Payment
+
+![ External Payment](../diagrams/PaymentSequence.drawio.png)
 ---
 
 📌 **Each flow directly maps to assessment requirements** for Persons, Accounts, and Transactions.
@@ -58,3 +61,4 @@ Each flow below directly maps to key requirements of the assessment.
 - [ERD & Database Model](Database_ERD.md)
 
 ---
+
