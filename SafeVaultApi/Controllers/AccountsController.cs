@@ -69,64 +69,6 @@ namespace SafeVaultApi.Controllers
             await _accounts.CloseAccountAsync(accountId);
             return NoContent();
         }
-
-        [HttpPost("{accountId:guid}/manual-transactions")]
-        public async Task<IActionResult> CreateManualTransaction(
-            Guid accountId,
-            [FromBody] CreateManualTransactionRequest request)
-        {
-            request.AccountId = accountId;
-
-            var result = await _manualTransactionService.CreateManualAsync(
-                ManualTransactionMapper.ToCommand(request)
-            );
-
-            if (!result.Success)
-                throw new ApiException(
-                    (int)HttpStatusCode.BadRequest,
-                    ErrorType.BadRequest,
-                    result.Message
-                );
-
-            return Ok(new { success = true, message = result.Message });
-        }
-
-        [HttpPut("manual-transactions/{transactionId:guid}")]
-        public async Task<IActionResult> UpdateManualTransaction(
-            Guid transactionId,
-            [FromBody] UpdateManualTransactionRequest request)
-        {
-            request.TransactionId = transactionId;
-
-            var result = await _manualTransactionService.UpdateManualAsync(
-                ManualTransactionMapper.ToCommand(request)
-            );
-
-            if (!result.Success)
-                throw new ApiException(
-                    (int)HttpStatusCode.BadRequest,
-                    ErrorType.BadRequest,
-                    result.Message
-                );
-
-            return Ok(new { success = true, message = result.Message });
-        }
-
-        [HttpDelete("manual-transactions/{transactionId:guid}")]
-        public async Task<IActionResult> DeleteManualTransaction(Guid transactionId)
-        {
-            var result = await _manualTransactionService.DeleteManualAsync(transactionId);
-
-            if (!result.Success)
-                throw new ApiException(
-                    (int)HttpStatusCode.BadRequest,
-                    ErrorType.BadRequest,
-                    result.Message
-                );
-
-            return Ok(new { success = true, message = result.Message });
-
-        }
     }
 }
 

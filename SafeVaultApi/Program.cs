@@ -3,7 +3,6 @@ using Application.Interfaces;
 using Infrastructure.Extensions;
 using Infrastructure.HttpProviders;
 using Infrastructure.Persistence;
-using Infrastructure.Persistence.Migrations;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using SafeVaultApi.Extensions;

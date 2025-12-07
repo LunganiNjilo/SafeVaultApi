@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeVaultApi.Tests", "SafeVaultApi.Tests\SafeVaultApi.Tests.csproj", "{CEECABC2-10AA-4C80-9397-03C57B46A426}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{09F82FCD-DD22-478A-A0EF-8D02AC4C8139}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeVault.FunctionalTests", "tests\SafeVault.FunctionalTests\SafeVault.FunctionalTests.csproj", "{9942FF58-5258-4130-B0E9-A34F587274D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,11 +43,18 @@ Global
 		{CEECABC2-10AA-4C80-9397-03C57B46A426}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEECABC2-10AA-4C80-9397-03C57B46A426}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEECABC2-10AA-4C80-9397-03C57B46A426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9942FF58-5258-4130-B0E9-A34F587274D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9942FF58-5258-4130-B0E9-A34F587274D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9942FF58-5258-4130-B0E9-A34F587274D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9942FF58-5258-4130-B0E9-A34F587274D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8B5B79AD-7E6C-4D56-8840-21874FF9D9E1}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9942FF58-5258-4130-B0E9-A34F587274D2} = {09F82FCD-DD22-478A-A0EF-8D02AC4C8139}
 	EndGlobalSection
 EndGlobal

@@ -58,6 +58,16 @@ namespace Infrastructure.Persistence
                 BalanceAfter = 1000M
             });
 
+            await db.Transactions.AddAsync(new Transaction
+            {
+                Account = user1Savings,
+                Amount = 1000M,
+                Fee = 0,
+                Type = TransactionType.Credit,
+                Description = "Initial balance",
+                BalanceAfter = 1000M
+            });
+
             // ============================
             // SECONDARY USER
             // ============================
@@ -98,6 +108,16 @@ namespace Infrastructure.Persistence
             await db.Transactions.AddAsync(new Transaction
             {
                 Account = user2Current,
+                Amount = 750M,
+                Fee = 0,
+                Type = TransactionType.Credit,
+                Description = "Initial balance",
+                BalanceAfter = 750M
+            });
+
+            await db.Transactions.AddAsync(new Transaction
+            {
+                Account = user2Savings,
                 Amount = 750M,
                 Fee = 0,
                 Type = TransactionType.Credit,

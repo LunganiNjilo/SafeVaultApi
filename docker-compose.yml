@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
 
   sqlserver:
@@ -5,13 +7,23 @@ services:
     container_name: safevault-sql
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "Your_password123"
+      SA_PASSWORD: "Your_Password123!"
+      MSSQL_PID: "Developer"
     ports:
       - "1433:1433"
     networks:
       - safevault-net
     volumes:
       - sql_data:/var/opt/mssql
+
+  payment-mock-service:
+    build:
+      context: ./payment-mock
+    container_name: safevault-payment-mock
+    ports:
+      - "9090:3000"
+    networks:
+      - safevault-net
 
   safevault-api:
     build:
@@ -24,21 +36,27 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ConnectionStrings__DefaultConnection: >
-        Server=sqlserver,1433;Database=SafeVaultDb;User Id=sa;Password=Your_password123;TrustServerCertificate=True;
-      PaymentApi__BaseUrl: "http://payment-mock-service:3000"  # <-- Mock API URL
+        Server=sqlserver,1433;Database=SafeVaultDb;User Id=sa;Password=Your_Password123!;TrustServerCertificate=True;
+      PaymentApi__BaseUrl: "http://payment-mock-service:3000"
     ports:
       - "8080:8080"
     networks:
       - safevault-net
 
-  payment-mock-service:
+  safevault-functional-tests:
     build:
-      context: ./payment-mock     # <-- Uses local Dockerfile
-    container_name: safevault-payment-mock
-    ports:
-      - "9090:3000"               # host:container
+      context: .
+      dockerfile: tests/SafeVault.FunctionalTests/Dockerfile
+    container_name: safevault-functional-tests
+    depends_on:
+      - safevault-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ApiBaseUrl: "http://safevault-api:8080"
     networks:
       - safevault-net
+    # Don't shutdown everything automatically
+    command: ["dotnet", "test", "--logger:trx"]
 
 networks:
   safevault-net:

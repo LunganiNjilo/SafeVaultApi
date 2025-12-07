@@ -1,0 +1,6 @@
+services:
+  safevault-functional-tests:
+    depends_on:
+      safevault-api:
+        condition: service_healthy
+    command: ["dotnet", "test", "--logger:trx"]

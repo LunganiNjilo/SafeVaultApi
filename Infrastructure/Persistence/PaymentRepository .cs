@@ -20,7 +20,6 @@ namespace Infrastructure.Persistence
 
         public async Task UpdateBalanceAsync(Account account, decimal amount)
         {
-            account.Balance -= amount;
             await _db.SaveChangesAsync();
         }
 
