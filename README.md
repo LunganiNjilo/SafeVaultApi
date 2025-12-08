@@ -101,8 +101,9 @@ docker start safevault-functional-tests
 docker logs -f safevault-functional-tests
 ```
 Locally:
-
+```
 dotnet test tests/SafeVault.FunctionalTests/SafeVault.FunctionalTests.csproj
+```
 ---
 ## 🧪 Run Tests (Integrated using NSubstitute)
 
