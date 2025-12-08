@@ -46,34 +46,65 @@ docker compose up --build
 
 This will:
 
-- Build and run the **SafeVault API** container
-- Start a **SQL Server** container
-- Optionally start any **stub services** used for external integrations (e.g. airtime)
+| Container                  | Purpose                          | Status After Startup        |
+| -------------------------- | -------------------------------- | --------------------------- |
+| safevault-sql              | SQL Server instance              | 🟢 Running                  |
+| safevault-api              | SafeVault backend API            | 🟢 Running                  |
+| safevault-payment-mock     | Airtime payment mock API         | 🟢 Running                  |
+| safevault-functional-tests | Automated functional test runner | 🔴 Exits after tests finish |
 
-Once up and running, access Swagger UI:
 
-➡️ `http://localhost:8080/swagger`
+Once running:
 
-> ⚠️ Ports may vary depending on your `docker-compose.yml`.
+➡️ http://localhost:8080/swagger
 
-For more detailed container setup and usage, see:  
-➡️ `docs/setup/DockerCompose.md`
+✔ Functional tests automatically run on startup
+✔ After tests finish, only API + SQL + Mock stay alive 😎
 
----
+📌 Check test logs if needed:
 
-### Option 2 — Run API locally
-
-<pre><code>
-dotnet restore
-dotnet build
-dotnet run --project SafeVaultApi
-</code></pre>
-
-> This option requires a reachable SQL Server instance and appropriate configuration.
+```bash
+docker logs safevault-functional-tests
+```
 
 ---
 
-## 🧪 Run Tests
+### 🧪 Functional Test Execution
+
+Tests validate real API behavior using a real SQL database.
+
+Check results:
+
+```bash
+docker logs safevault-functional-tests
+```
+
+Example:
+
+Passed! - Failed: 0, Passed: 14, Skipped: 0, Total: 14
+
+Test results stored at:
+
+```bash
+/app/tests/SafeVault.FunctionalTests/TestResults/
+```
+
+Future enhancement: mount results to host.
+
+---
+### ▶️ Running Tests Manually (Optional)
+
+```
+docker start safevault-functional-tests
+```
+```
+docker logs -f safevault-functional-tests
+```
+Locally:
+
+dotnet test tests/SafeVault.FunctionalTests/SafeVault.FunctionalTests.csproj
+---
+## 🧪 Run Tests (Integrated using NSubstitute)
 
 The backend includes automated tests that run in a **Testing** environment that:
 
